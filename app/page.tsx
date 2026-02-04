@@ -1,11 +1,27 @@
-import { getBinanceData } from '@/lib/api/binance';
+import { fetchMarkets } from '@/lib/api/binance';
 
 export default async function Home() {
-  const data = await getBinanceData();
-  console.log(data);
+  const markets = await fetchMarkets(); // 실패하면 throw → error.tsx가 처리
+
+  // 일단 확인용으로 20개만
+  const top = markets.slice(0, 20);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start"></main>
-    </div>
+    <main className="p-6">
+      <h1 className="text-xl font-bold">Market</h1>
+      <ul className="mt-4 space-y-2">
+        {top.map((m) => (
+          <li key={m.base} className="rounded-md border p-3">
+            <div className="flex justify-between">
+              <span className="font-medium">
+                {m.base}/{m.quote}
+              </span>
+              <span>{m.lastPrice}</span>
+            </div>
+            <div className="mt-1 text-sm opacity-80">24h: {m.priceChangePercent}%</div>
+          </li>
+        ))}
+      </ul>
+    </main>
   );
 }
