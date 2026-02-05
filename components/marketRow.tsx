@@ -1,7 +1,10 @@
+'use client';
+
 import { formatCompact, formatPrice } from '@/lib/format';
 import { Market } from '@/types/market';
+import React from 'react';
 
-export default function MarketRow(market: Market) {
+function MarketRow({ market }: { market: Market }) {
   const isUp = market.priceChangePercent > 0;
   return (
     <li key={`${market.base}-${market.quote}`} className="rounded-md border p-3">
@@ -24,3 +27,5 @@ export default function MarketRow(market: Market) {
     </li>
   );
 }
+
+export default React.memo(MarketRow);

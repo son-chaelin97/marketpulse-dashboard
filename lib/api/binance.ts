@@ -5,11 +5,11 @@ const BINANCE_24H_URL = 'https://api.binance.com/api/v3/ticker/24hr';
 const QUOTE = 'USDT' as const;
 
 function toNumber(value: string, fieldName: string): number {
-  const n = Number(value);
-  if (!Number.isFinite(n)) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) {
     throw new Error(`Invalid number for ${fieldName}: "${value}"`);
   }
-  return n;
+  return num;
 }
 
 function toMarket(item: Binance24hrTicker) {
@@ -17,6 +17,7 @@ function toMarket(item: Binance24hrTicker) {
   const base = item.symbol.slice(0, -QUOTE.length);
 
   return {
+    symbol: item.symbol,
     base,
     quote: QUOTE,
     lastPrice: toNumber(item.lastPrice, 'lastPrice'),
@@ -28,7 +29,7 @@ function toMarket(item: Binance24hrTicker) {
 }
 
 const fetchMarkets = async (): Promise<Market[]> => {
-  const response = await fetch(BINANCE_24H_URL, { cache: 'no-store' });
+  const response = await fetch(BINANCE_24H_URL);
 
   if (!response.ok) {
     throw new Error(`Binance API failed: ${response.status} ${response.statusText}`);
