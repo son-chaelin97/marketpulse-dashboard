@@ -7,24 +7,25 @@ import React from 'react';
 function MarketRow({ market }: { market: Market }) {
   const isUp = market.priceChangePercent > 0;
   return (
-    <li key={`${market.base}-${market.quote}`} className="rounded-md border p-3">
-      <div className="flex justify-between">
-        <span className="font-medium">
+    <tr className="align-baseline border-solid border-black border">
+      <td className="px-4 min-w-3xs">
+        <span className="font-bold">
           {market.base}/{market.quote}
         </span>
-        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'}`}>{formatPrice(market.lastPrice)}</span>
-      </div>
-      <div className="mt-1 text-sm opacity-80">
-        24h change percent:{' '}
-        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'}`}>{market.priceChangePercent}%</span>
-      </div>
-      <div className="mt-1 text-sm opacity-80 hidden sm:block">
-        24h hight/low price: {formatPrice(market.highPrice)}%/{formatPrice(market.lowPrice)}
-      </div>
-      <div className="mt-1 text-sm opacity-80 hidden sm:block">
-        quote volume: {formatCompact.format(market.quoteVolume)}
-      </div>
-    </li>
+      </td>
+      <td className="px-4 min-w-3xs">
+        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} font-bold`}>{formatPrice(market.lastPrice)}</span>
+      </td>
+      <td className="px-4 min-w-xs">
+        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} block font-bold`}>
+          {market.priceChangePercent}%
+        </span>
+        <span className="block text-xs text-gray-500">
+          24h H/L: {formatPrice(market.highPrice)} / {formatPrice(market.lowPrice)}
+        </span>
+      </td>
+      <td className="hidden sm:table-cell px-4">{formatCompact.format(market.quoteVolume)}</td>
+    </tr>
   );
 }
 

@@ -1,11 +1,14 @@
 'use client';
 
+import useMarketListView from '@/hooks/useMarketListView';
 import useMarkets from '@/hooks/useMarkets';
 import EmptyState from './emptyState';
+import MarketHead from './marketHead';
 import MarketRow from './marketRow';
 
 export default function MarketList() {
   const { isPending, error, markets } = useMarkets();
+  const { getSortedMarkets, handleSortChange, sortData } = useMarketListView();
 
   if (isPending) return <div>Loading...</div>;
 
@@ -16,10 +19,13 @@ export default function MarketList() {
   }
 
   return (
-    <ul className="mt-4 space-y-2">
-      {markets.map((market) => (
-        <MarketRow key={market.symbol} market={market} />
-      ))}
-    </ul>
+    <table className="table-auto">
+      <MarketHead handleSortChange={handleSortChange} sortData={sortData} />
+      <tbody>
+        {getSortedMarkets(markets).map((market) => (
+          <MarketRow key={market.symbol} market={market} />
+        ))}
+      </tbody>
+    </table>
   );
 }
