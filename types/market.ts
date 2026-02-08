@@ -8,3 +8,12 @@ export interface Market {
   lowPrice: number;
   quoteVolume: number;
 }
+
+export type SortKey = 'quoteVolume' | 'symbol' | 'lastPrice' | 'priceChangePercent';
+export type SortDir = 'asc' | 'desc' | null;
+export interface SortData {
+  quoteVolume: SortDir;
+  symbol: SortDir;
+  lastPrice: SortDir;
+  priceChangePercent: SortDir;
+}
