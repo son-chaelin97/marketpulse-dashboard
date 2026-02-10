@@ -4,19 +4,38 @@ import { formatCompact, formatPrice } from '@/lib/format';
 import { Market } from '@/types/market';
 import React from 'react';
 
-function MarketRow({ market }: { market: Market }) {
+function MarketRow({
+  market,
+  handleSelectedMarket,
+}: {
+  market: Market;
+  handleSelectedMarket: (symbol: string) => void;
+}) {
   const isUp = market.priceChangePercent > 0;
+
+  const onKeyDown: React.KeyboardEventHandler<HTMLTableRowElement> = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleSelectedMarket(market.symbol);
+    }
+  };
+
   return (
-    <tr className="align-baseline border-solid border-black border">
-      <td className="px-4 min-w-3xs">
+    <tr
+      className="align-baseline border-solid border-black border cursor-pointer"
+      role="button"
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+      onClick={() => handleSelectedMarket(market.symbol)}>
+      <td className="px-4 w-50 max-w-50">
         <span className="font-bold">
           {market.base}/{market.quote}
         </span>
       </td>
-      <td className="px-4 min-w-3xs">
+      <td className="px-4">
         <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} font-bold`}>{formatPrice(market.lastPrice)}</span>
       </td>
-      <td className="px-4 min-w-xs">
+      <td className="px-4">
         <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} block font-bold`}>
           {market.priceChangePercent}%
         </span>
@@ -24,7 +43,7 @@ function MarketRow({ market }: { market: Market }) {
           24h H/L: {formatPrice(market.highPrice)} / {formatPrice(market.lowPrice)}
         </span>
       </td>
-      <td className="hidden sm:table-cell px-4">{formatCompact.format(market.quoteVolume)}</td>
+      <td className="hidden sm:table-cell px-4 w-20 max-w-20">{formatCompact.format(market.quoteVolume)}</td>
     </tr>
   );
 }

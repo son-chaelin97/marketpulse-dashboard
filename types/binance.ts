@@ -6,3 +6,13 @@ export interface Binance24hrTicker {
   lowPrice: string;
   quoteVolume: string;
 }
+
+export type BinanceKline = [
+  number, // Kline open time
+  string, // Open price
+  string, // High price
+  string, // Low price
+  string, // Close price
+  string, // Volume
+  number, // Kline Close time
+];

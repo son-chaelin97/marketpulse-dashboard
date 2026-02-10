@@ -1,4 +1,5 @@
-import type { Binance24hrTicker } from '@/types/binance';
+import type { Binance24hrTicker, BinanceKline } from '@/types/binance';
+import { Candle } from '@/types/chart';
 import type { Market } from '@/types/market';
 
 const BINANCE_24H_URL = 'https://api.binance.com/api/v3/ticker/24hr';
@@ -47,4 +48,23 @@ const fetchMarkets = async (): Promise<Market[]> => {
   );
 };
 
-export { fetchMarkets };
+const getDay = (openTime: number) => {
+  const date = new Date(openTime).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
+  return date;
+};
+
+const fetchMarketCandles = async (symbol: string): Promise<Candle[]> => {
+  const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=200`);
+
+  if (!response.ok) {
+    throw new Error(`Binance API failed: ${response.status} ${response.statusText}`);
+  }
+
+  const json = await response.json();
+  return json.map((item: BinanceKline) => ({
+    day: getDay(item[0]),
+    price: [toNumber(item[3], 'low'), toNumber(item[2], 'high')], // [가장 낮은 가격, 가장 높은 가격]
+  }));
+};
+
+export { fetchMarketCandles, fetchMarkets };
