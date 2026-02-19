@@ -6,21 +6,120 @@
 }
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
+/* Light Mode - Frosted glass aesthetic */
+* :root {
+  --primary: oklch(0.5 0.2 300);
+  --primary-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.5 0.2 300);
+  --sidebar-primary-foreground: oklch(1 0 0);
+
+  --chart-1: oklch(0.5 0.18 160);
+  --chart-2: oklch(0.55 0.2 25);
+  --chart-3: oklch(0.5 0.25 300);
+  --chart-4: oklch(0.45 0.2 250);
+  --chart-5: oklch(0.4 0.15 200);
+
+  /* Light mode background - soft gradient */
+  --background: oklch(0.97 0.002 280);
+  --foreground: oklch(0.2 0.03 250);
+
+  /* Light glass card - frosted glass effect */
+  --card: oklch(1 0 0 / 0.5);
+  --card-foreground: oklch(0.2 0.03 250);
+
+  --popover: oklch(1 0 0 / 0.6);
+  --popover-foreground: oklch(0.2 0.03 250);
+
+  --secondary: oklch(0.95 0.001 0);
+  --secondary-foreground: oklch(0.3 0.02 250);
+
+  --muted: oklch(0.92 0.001 0);
+  --muted-foreground: oklch(0.5 0.02 250);
+
+  --accent: oklch(0.5 0.2 300 / 0.12);
+  --accent-foreground: oklch(0.2 0.03 250);
+
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(0.88 0.002 280);
+  --input: oklch(0.92 0.001 0);
+  --ring: oklch(0.5 0.2 300 / 0.5);
+
+  --sidebar: oklch(0.96 0.001 0);
+  --sidebar-foreground: oklch(0.2 0.03 250);
+  --sidebar-accent: oklch(0.92 0.001 0);
+  --sidebar-accent-foreground: oklch(0.2 0.03 250);
+  --sidebar-border: oklch(0.88 0.002 280);
+  --sidebar-ring: oklch(0.5 0.2 300 / 0.5);
+}
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 이미지 스케일링 과정에서 생기는 서브픽셀(소수점 픽셀) 반올림/렌더링 글리치 현상 제거*/
+body::before {
+  content: '';
+  position: fixed;
+  inset: -2px; /* 핵심: 1~3px 정도 밖으로 */
+  z-index: -1;
+
+  background-image: url('/images/light-mode-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  transform: scale(1.02); /* 추가 안전장치 */
+  will-change: transform;
+}
+
+.glass-card {
+  background: oklch(1 0 0 / 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 8px 32px oklch(0 0 0 / 0.2),
+    inset 0 1px 0 oklch(1 0 0 / 0.1);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
