@@ -18,12 +18,18 @@ export default function Home() {
   };
 
   return (
-    <main className="p-6">
-      <h1 className="text-xl font-bold">Market</h1>
-      <div className="flex">
-        <MarketList handleSelectedMarket={handleSelectedMarket} />
-        {selectedSymbol !== null && <MarketCandle selectedSymbol={selectedSymbol} />}
-      </div>
-    </main>
+    <div className="min-h-screen relative overflow-hidden">
+      <div className={`fixed inset-0 -z-10 block min-h-screen bg-[url('/images/light-mode-bg.png')]`} />
+      <main className="pt-12 pb-12 pr-6 pl-6 mr-6 ml-6">
+        <h1 className="font-bold text-6xl text-transparent bg-linear-to-r from-slate-800 via-blue-700 to-purple-700 bg-clip-text mb-3">
+          암호화폐 시세
+        </h1>
+        <span className="text-lg text-muted-foreground">실시간 마켓 데이터 대시보드</span>
+        <div className="flex mt-8">
+          <MarketList handleSelectedMarket={handleSelectedMarket} />
+          {selectedSymbol !== null && <MarketCandle selectedSymbol={selectedSymbol} />}
+        </div>
+      </main>
+    </div>
   );
 }

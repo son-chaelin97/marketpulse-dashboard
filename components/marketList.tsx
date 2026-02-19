@@ -19,7 +19,7 @@ export default function MarketList({ handleSelectedMarket }: { handleSelectedMar
   }
 
   return (
-    <table className="table-auto w-5xl">
+    <table className="table-auto w-full glass-card">
       <MarketHead handleSortChange={handleSortChange} sortData={sortData} />
       <tbody>
         {getSortedMarkets(markets).map((market) => (
