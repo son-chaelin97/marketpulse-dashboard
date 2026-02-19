@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
-    <main className="p-6">
-      <p>로딩 중...</p>
-    </main>
+    <div className="flex items-center justify-center p-12" role="status" aria-live="polite">
+      <span className="text-muted-foreground">로딩 중...</span>
+    </div>
   );
 }

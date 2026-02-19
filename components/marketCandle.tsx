@@ -1,14 +1,20 @@
 'use client';
 
+import Loading from '@/app/loading';
 import useMarketCandles from '@/hooks/chart/useMarketCandles';
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 export default function MarketCandle({ selectedSymbol }: { selectedSymbol: string }) {
   const { candles, isPending, error } = useMarketCandles(selectedSymbol);
 
-  if (isPending) return <div>Loading...</div>;
+  if (isPending) return <Loading />;
 
-  if (error) return <div>{error.message}</div>;
+  if (error)
+    return (
+      <div className="flex items-center justify-center p-12 text-destructive" role="alert">
+        <p>차트 데이터를 불러오는데 실패했습니다.</p>
+      </div>
+    );
 
   if (candles.length === 0) return <div>No candles found</div>;
 
