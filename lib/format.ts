@@ -1,5 +1,8 @@
 export function formatPrice(num: number) {
-  return num.toFixed(2);
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
 }
 
 export const formatCompact = new Intl.NumberFormat('en-US', {

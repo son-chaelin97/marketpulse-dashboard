@@ -54,14 +54,16 @@ const getDay = (openTime: number) => {
 };
 
 const fetchMarketCandles = async (symbol: string): Promise<Candle[]> => {
+  // TODO: API URL을 환경 변수로 분리
+  // .env.example 추가
   const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=200`);
 
   if (!response.ok) {
     throw new Error(`Binance API failed: ${response.status} ${response.statusText}`);
   }
 
-  const json = await response.json();
-  return json.map((item: BinanceKline) => ({
+  const json: BinanceKline[] = await response.json();
+  return json.map((item) => ({
     day: getDay(item[0]),
     price: [toNumber(item[3], 'low'), toNumber(item[2], 'high')], // [가장 낮은 가격, 가장 높은 가격]
   }));
