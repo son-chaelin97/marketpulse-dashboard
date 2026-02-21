@@ -5,3 +5,11 @@ export type FavoritesStoreActions = {
 };
 
 export type FavoritesStore = FavoritesState & FavoritesStoreActions;
+
+export type ThemeState = { theme: 'light' | 'dark' };
+
+export type ThemeStoreActions = {
+  toggleTheme: () => void;
+};
+
+export type ThemeStore = ThemeState & ThemeStoreActions;

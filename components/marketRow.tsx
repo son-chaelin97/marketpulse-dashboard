@@ -31,7 +31,7 @@ function MarketRow({
 
   return (
     <tr
-      className="align-baseline cursor-pointer border-b border-border/50"
+      className="align-baseline border-b border-border/50 hover:bg-primary/5 cursor-pointer transition-colors duration-200"
       role="button"
       tabIndex={0}
       onKeyDown={onKeyDown}
@@ -39,7 +39,7 @@ function MarketRow({
       <td className="px-6 py-4 w-30 max-w-30 align-middle">
         <button
           type="button"
-          className="p-2 rounded-full h-9 cursor-pointer hover:bg-primary/10 transition-colors duration-200"
+          className="p-2 rounded-full h-9 cursor-pointer hover:bg-primary/20 transition-colors duration-200"
           onClick={handleToggleFavorite}
           aria-label={isFavorite.includes(market.symbol) ? '관심 목록에서 제거' : '관심 목록에 추가'}>
           {isFavorite.includes(market.symbol) ? (
@@ -55,10 +55,10 @@ function MarketRow({
         </span>
       </td>
       <td className="px-6 py-4 align-middle">
-        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} font-bold`}>{formatPrice(market.lastPrice)}</span>
+        <span className={`${isUp ? 'text-chart-1' : 'text-chart-2'} font-bold`}>{formatPrice(market.lastPrice)}</span>
       </td>
       <td className="px-6 py-4">
-        <span className={`${isUp ? 'text-red-600' : 'text-blue-600'} block font-bold`}>
+        <span className={`${isUp ? 'text-chart-1' : 'text-chart-2'} block font-bold`}>
           {market.priceChangePercent}%
         </span>
         <span className="block text-xs text-gray-500 align-middle">

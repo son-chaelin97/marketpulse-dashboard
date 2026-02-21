@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   /* Light Mode - Frosted glass aesthetic */
@@ -89,7 +90,7 @@
 
 body {
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Outfit, sans-serif;
 }
 
 /* 이미지 스케일링 과정에서 생기는 서브픽셀(소수점 픽셀) 반올림/렌더링 글리치 현상 제거*/
@@ -106,6 +107,60 @@ body::before {
 
   transform: scale(1.02); /* 추가 안전장치 */
   will-change: transform;
+}
+
+html.dark body::before {
+  background-image: url('/images/dark-mode-bg.png');
+}
+
+.dark {
+  /* Dark Mode - Deep space navy with bright text */
+  --primary: oklch(0.65 0.25 300);
+  --primary-foreground: oklch(1 0 0);
+  --sidebar-primary: oklch(0.65 0.25 300);
+  --sidebar-primary-foreground: oklch(1 0 0);
+
+  --chart-1: oklch(0.75 0.18 160);
+  --chart-2: oklch(0.7 0.2 25);
+  --chart-3: oklch(0.65 0.25 300);
+  --chart-4: oklch(0.6 0.2 250);
+  --chart-5: oklch(0.55 0.15 200);
+
+  --radius: 1.25rem;
+
+  /* Dark mode background - deep navy */
+  --background: oklch(0.08 0.02 250);
+  --foreground: oklch(0.98 0.01 0);
+
+  /* Glass card with translucent white */
+  --card: oklch(1 0 0 / 0.08);
+  --card-foreground: oklch(0.98 0.01 0);
+
+  --popover: oklch(0.15 0.03 260);
+  --popover-foreground: oklch(0.98 0.01 0);
+
+  --secondary: oklch(1 0 0 / 0.05);
+  --secondary-foreground: oklch(0.9 0.02 0);
+
+  --muted: oklch(1 0 0 / 0.06);
+  --muted-foreground: oklch(0.7 0.03 0);
+
+  --accent: oklch(0.65 0.25 300 / 0.15);
+  --accent-foreground: oklch(0.98 0.01 0);
+
+  --destructive: oklch(0.7 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+
+  --border: oklch(1 0 0 / 0.12);
+  --input: oklch(1 0 0 / 0.1);
+  --ring: oklch(0.65 0.25 300 / 0.5);
+
+  --sidebar: oklch(0.12 0.03 260);
+  --sidebar-foreground: oklch(0.98 0.01 0);
+  --sidebar-accent: oklch(1 0 0 / 0.08);
+  --sidebar-accent-foreground: oklch(0.98 0.01 0);
+  --sidebar-border: oklch(1 0 0 / 0.1);
+  --sidebar-ring: oklch(0.65 0.25 300 / 0.5);
 }
 
 .glass-card {
