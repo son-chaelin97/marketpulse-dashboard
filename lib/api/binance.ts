@@ -1,5 +1,5 @@
 import type { Binance24hrTicker, BinanceKline } from '@/types/binance';
-import { Candle } from '@/types/chart';
+import { Candle, StatusType } from '@/types/chart';
 import type { Market } from '@/types/market';
 
 const BINANCE_24H_URL = 'https://api.binance.com/api/v3/ticker/24hr';
@@ -56,17 +56,37 @@ const getDay = (openTime: number) => {
 const fetchMarketCandles = async (symbol: string): Promise<Candle[]> => {
   // TODO: API URL을 환경 변수로 분리
   // .env.example 추가
-  const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=200`);
+  const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=30`);
 
   if (!response.ok) {
     throw new Error(`Binance API failed: ${response.status} ${response.statusText}`);
   }
 
   const json: BinanceKline[] = await response.json();
-  return json.map((item) => ({
-    day: getDay(item[0]),
-    price: [toNumber(item[3], 'low'), toNumber(item[2], 'high')], // [가장 낮은 가격, 가장 높은 가격]
-  }));
+  return json.map((item) => {
+    const openPrice = toNumber(item[1], 'open');
+    const highPrice = toNumber(item[2], 'high');
+    const lowPrice = toNumber(item[3], 'low');
+    const closePrice = toNumber(item[4], 'close');
+    let status: StatusType = 'flat';
+    if (closePrice > openPrice) {
+      status = 'up';
+    } else if (openPrice > closePrice) {
+      status = 'down';
+    }
+
+    return {
+      date: getDay(item[0]),
+      open: openPrice,
+      close: closePrice,
+      high: highPrice,
+      low: lowPrice,
+      hlRange: [highPrice, lowPrice], // 꼬리(High - Low)
+      // +0.1를 하는 이유: 0폭 막대 방지
+      ocRange: status === 'flat' ? [openPrice, closePrice + 0.1] : [openPrice, closePrice], // 몸통(Open - Close)
+      status,
+    };
+  });
 };
 
 export { fetchMarketCandles, fetchMarkets };
