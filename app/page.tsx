@@ -63,9 +63,13 @@ export default function Home() {
             관심 코인 보기({isFavorite.length})
           </button>
         </div>
-        <div className="flex mt-8">
-          <MarketList handleSelectedMarket={handleSelectedMarket} coinFilter={coinFilter} />
-          {selectedSymbol !== null && <MarketCandle selectedSymbol={selectedSymbol} />}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+          <div className="lg:col-span-2">
+            <MarketList handleSelectedMarket={handleSelectedMarket} coinFilter={coinFilter} />
+          </div>
+          <div className="lg:col-span-1">
+            {selectedSymbol !== null && <MarketCandle selectedSymbol={selectedSymbol} />}
+          </div>
         </div>
       </main>
     </div>
