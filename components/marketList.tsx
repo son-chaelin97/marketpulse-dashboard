@@ -5,18 +5,11 @@ import useMarketListView from '@/hooks/market/useMarketListView';
 import useMarkets from '@/hooks/market/useMarkets';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import { CoinFilterType } from '@/types/filter';
-import { Market } from '@/types/market';
 import EmptyState from './emptyState';
 import MarketHead from './marketHead';
 import MarketRow from './marketRow';
 
-export default function MarketList({
-  handleSelectedMarket,
-  coinFilter,
-}: {
-  handleSelectedMarket: (market: Market) => void;
-  coinFilter: CoinFilterType;
-}) {
+export default function MarketList({ coinFilter }: { coinFilter: CoinFilterType }) {
   const { isPending, error, markets } = useMarkets();
   const { getSortedMarkets, handleSortChange, sortData } = useMarketListView();
   const isFavorite = useFavoritesStore((state) => state.symbols);
@@ -36,7 +29,7 @@ export default function MarketList({
         {getSortedMarkets(
           coinFilter === 'favorite' ? markets.filter((data) => isFavorite.includes(data.symbol)) : markets,
         ).map((market) => (
-          <MarketRow key={market.symbol} market={market} handleSelectedMarket={handleSelectedMarket} />
+          <MarketRow key={market.symbol} market={market} />
         ))}
       </tbody>
     </table>

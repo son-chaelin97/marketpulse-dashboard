@@ -1,3 +1,6 @@
+import { Market } from './market';
+
+// --- useFavoritesStore.ts ---
 export type FavoritesState = { symbols: string[] };
 
 export type FavoritesStoreActions = {
@@ -6,6 +9,7 @@ export type FavoritesStoreActions = {
 
 export type FavoritesStore = FavoritesState & FavoritesStoreActions;
 
+// --- useTheme.ts ---
 export type ThemeState = { theme: 'light' | 'dark' };
 
 export type ThemeStoreActions = {
@@ -13,3 +17,13 @@ export type ThemeStoreActions = {
 };
 
 export type ThemeStore = ThemeState & ThemeStoreActions;
+
+// --- useMarketStore.ts ---
+export type SelectedMarketState = { selectedMarket: Market | null };
+
+export type MarketStoreActions = {
+  toggleMarket: (market: Market) => void;
+  closeMarket: () => void;
+};
+
+export type MarketStore = SelectedMarketState & MarketStoreActions;
