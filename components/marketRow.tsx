@@ -11,7 +11,7 @@ function MarketRow({
   handleSelectedMarket,
 }: {
   market: Market;
-  handleSelectedMarket: (symbol: string) => void;
+  handleSelectedMarket: (market: Market) => void;
 }) {
   const isFavorite = useFavoritesStore((state) => state.symbols);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
@@ -20,7 +20,7 @@ function MarketRow({
   const onKeyDown: React.KeyboardEventHandler<HTMLTableRowElement> = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      handleSelectedMarket(market.symbol);
+      handleSelectedMarket(market);
     }
   };
 
@@ -35,7 +35,7 @@ function MarketRow({
       role="button"
       tabIndex={0}
       onKeyDown={onKeyDown}
-      onClick={() => handleSelectedMarket(market.symbol)}>
+      onClick={() => handleSelectedMarket(market)}>
       <td className="px-6 py-4 w-30 max-w-30 align-middle">
         <button
           type="button"

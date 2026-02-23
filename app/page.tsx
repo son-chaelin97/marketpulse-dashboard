@@ -5,23 +5,24 @@ import MarketList from '@/components/marketList';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import useTheme from '@/store/useTheme';
 import { CoinFilterType } from '@/types/filter';
+import { Market } from '@/types/market';
 import { MoonIcon, SunIcon } from '@phosphor-icons/react/dist/ssr';
 import { useState } from 'react';
 
 export default function Home() {
-  // selectedSymbol은 추후에 Zustand로 옮겨 관리할 예정
-  const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
+  // selectedMarket은 추후에 Zustand로 옮겨 관리할 예정
+  const [selectedMarket, setSelectedMarket] = useState<Market | null>(null);
   const [coinFilter, setCoinFilter] = useState<CoinFilterType>('all');
   const isFavorite = useFavoritesStore((state) => state.symbols);
   const theme = useTheme((state) => state.theme);
   const toggleTheme = useTheme((state) => state.toggleTheme);
 
-  const handleSelectedMarket = (symbol: string) => {
-    if (symbol === selectedSymbol) {
+  const handleSelectedMarket = (market: Market) => {
+    if (market.symbol === selectedMarket?.symbol) {
       // 이미 클릭한 종목을 한번 더 클릭하면 차트가 닫힘
-      setSelectedSymbol(null);
+      setSelectedMarket(null);
     } else {
-      setSelectedSymbol(symbol);
+      setSelectedMarket(market);
     }
   };
 
@@ -68,7 +69,7 @@ export default function Home() {
             <MarketList handleSelectedMarket={handleSelectedMarket} coinFilter={coinFilter} />
           </div>
           <div className="lg:col-span-1">
-            {selectedSymbol !== null && <MarketCandle selectedSymbol={selectedSymbol} />}
+            {selectedMarket !== null && <MarketCandle selectedMarket={selectedMarket} />}
           </div>
         </div>
       </main>

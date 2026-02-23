@@ -5,6 +5,7 @@ import useMarketListView from '@/hooks/market/useMarketListView';
 import useMarkets from '@/hooks/market/useMarkets';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import { CoinFilterType } from '@/types/filter';
+import { Market } from '@/types/market';
 import EmptyState from './emptyState';
 import MarketHead from './marketHead';
 import MarketRow from './marketRow';
@@ -13,7 +14,7 @@ export default function MarketList({
   handleSelectedMarket,
   coinFilter,
 }: {
-  handleSelectedMarket: (symbol: string) => void;
+  handleSelectedMarket: (market: Market) => void;
   coinFilter: CoinFilterType;
 }) {
   const { isPending, error, markets } = useMarkets();
