@@ -3,12 +3,14 @@
 import Loading from '@/app/loading';
 import useMarketCandles from '@/hooks/chart/useMarketCandles';
 import { formatPrice } from '@/lib/format';
+import useMarketStore from '@/store/useMarketStore';
 import { Market } from '@/types/market';
 import { XIcon } from '@phosphor-icons/react/dist/ssr';
 import { CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis } from 'recharts';
 
 export default function MarketCandle({ selectedMarket }: { selectedMarket: Market }) {
   const { candles, isPending, error } = useMarketCandles(selectedMarket.symbol);
+  const closeMarket = useMarketStore((state) => state.closeMarket);
 
   if (isPending) return <Loading />;
 
@@ -31,7 +33,7 @@ export default function MarketCandle({ selectedMarket }: { selectedMarket: Marke
           </h3>
           <p className="text-sm text-muted-foreground mt-1">{selectedMarket.base} · 최근 30일 일봉</p>
         </div>
-        <button type="button" className="cursor-pointer">
+        <button type="button" className="cursor-pointer" onClick={closeMarket} aria-label="차트 닫기">
           <XIcon size={16} weight="bold" />
         </button>
       </div>

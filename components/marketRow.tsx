@@ -2,25 +2,21 @@
 
 import { formatCompact, formatPrice } from '@/lib/format';
 import useFavoritesStore from '@/store/useFavoritesStore';
+import useMarketStore from '@/store/useMarketStore';
 import { Market } from '@/types/market';
 import { StarIcon } from '@phosphor-icons/react/dist/ssr';
 import React from 'react';
 
-function MarketRow({
-  market,
-  handleSelectedMarket,
-}: {
-  market: Market;
-  handleSelectedMarket: (market: Market) => void;
-}) {
+function MarketRow({ market }: { market: Market }) {
   const isFavorite = useFavoritesStore((state) => state.symbols);
   const toggleFavorite = useFavoritesStore((state) => state.toggleFavorite);
+  const toggleMarket = useMarketStore((state) => state.toggleMarket);
   const isUp = market.priceChangePercent > 0;
 
   const onKeyDown: React.KeyboardEventHandler<HTMLTableRowElement> = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      handleSelectedMarket(market);
+      toggleMarket(market);
     }
   };
 
@@ -35,7 +31,7 @@ function MarketRow({
       role="button"
       tabIndex={0}
       onKeyDown={onKeyDown}
-      onClick={() => handleSelectedMarket(market)}>
+      onClick={() => toggleMarket(market)}>
       <td className="px-6 py-4 w-30 max-w-30 align-middle">
         <button
           type="button"
