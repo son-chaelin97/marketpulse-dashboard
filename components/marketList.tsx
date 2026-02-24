@@ -1,25 +1,25 @@
 'use client';
 
-import Loading from '@/app/loading';
 import useMarketListView from '@/hooks/market/useMarketListView';
 import useMarkets from '@/hooks/market/useMarkets';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import { CoinFilterType } from '@/types/filter';
-import EmptyState from './emptyState';
+import { EmptyMarketList } from './emptyState';
 import MarketHead from './marketHead';
 import MarketRow from './marketRow';
+import { TableSkeleton } from './skeleton';
 
 export default function MarketList({ coinFilter }: { coinFilter: CoinFilterType }) {
   const { isPending, error, markets } = useMarkets();
   const { getSortedMarkets, handleSortChange, sortData } = useMarketListView();
   const isFavorite = useFavoritesStore((state) => state.symbols);
 
-  if (isPending) return <Loading />;
+  if (isPending) return <TableSkeleton />;
 
   if (error) return <div>{error.message}</div>;
 
   if (markets.length === 0) {
-    return <EmptyState message="No markets available" />;
+    return <EmptyMarketList />;
   }
 
   return (

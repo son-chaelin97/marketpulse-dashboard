@@ -3,6 +3,7 @@ import { Candle, StatusType } from '@/types/chart';
 import type { Market } from '@/types/market';
 
 const BINANCE_24H_URL = 'https://api.binance.com/api/v3/ticker/24hr';
+const BINANCE_KLINES_URL = 'https://api.binance.com/api/v3/klines';
 const QUOTE = 'USDT' as const;
 
 function toNumber(value: string, fieldName: string): number {
@@ -56,7 +57,7 @@ const getDay = (openTime: number) => {
 const fetchMarketCandles = async (symbol: string): Promise<Candle[]> => {
   // TODO: API URL을 환경 변수로 분리
   // .env.example 추가
-  const response = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=1d&limit=30`);
+  const response = await fetch(`${BINANCE_KLINES_URL}?symbol=${symbol}&interval=1d&limit=30`);
 
   if (!response.ok) {
     throw new Error(`Binance API failed: ${response.status} ${response.statusText}`);

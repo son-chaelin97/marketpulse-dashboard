@@ -59,7 +59,16 @@ export default function Home() {
             <MarketList coinFilter={coinFilter} />
           </div>
           <div className="lg:col-span-1">
-            {selectedMarket !== null && <MarketCandle selectedMarket={selectedMarket} />}
+            {selectedMarket === null ? (
+              <div className="glass-card p-8 text-center flex flex-col items-center justify-center h-100">
+                <p className="text-lg text-muted-foreground mb-2">코인을 선택하세요</p>
+                <p className="text-sm text-muted-foreground">
+                  테이블에서 코인을 클릭하면 일봉 차트를 확인할 수 있습니다
+                </p>
+              </div>
+            ) : (
+              <MarketCandle selectedMarket={selectedMarket} />
+            )}
           </div>
         </div>
       </main>
