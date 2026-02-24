@@ -4,7 +4,7 @@ import { formatCompact, formatPrice } from '@/lib/format';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import useMarketStore from '@/store/useMarketStore';
 import { Market } from '@/types/market';
-import { StarIcon } from '@phosphor-icons/react/dist/ssr';
+import { StarIcon, TrendDownIcon, TrendUpIcon } from '@phosphor-icons/react/dist/ssr';
 import React from 'react';
 
 function MarketRow({ market }: { market: Market }) {
@@ -46,22 +46,33 @@ function MarketRow({ market }: { market: Market }) {
         </button>
       </td>
       <td className="px-6 py-4 w-50 max-w-50 align-middle">
-        <span className="font-bold">
-          {market.base}/{market.quote}
-        </span>
+        <span className="font-bold">{market.base}</span>
       </td>
       <td className="px-6 py-4 align-middle">
-        <span className={`${isUp ? 'text-chart-1' : 'text-chart-2'} font-bold`}>{formatPrice(market.lastPrice)}</span>
+        <span className={`${isUp ? 'text-(--color-chart-1)' : 'text-(--color-chart-2)'} font-bold`}>
+          {formatPrice(market.lastPrice)}
+        </span>
       </td>
       <td className="px-6 py-4">
-        <span className={`${isUp ? 'text-chart-1' : 'text-chart-2'} block font-bold`}>
-          {market.priceChangePercent}%
-        </span>
-        <span className="block text-xs text-gray-500 align-middle">
-          24h H/L: {formatPrice(market.highPrice)} / {formatPrice(market.lowPrice)}
-        </span>
+        <div className="flex items-center gap-2">
+          <div className={`p-1 rounded-4xl ${isUp ? 'bg-chart-1/20' : 'bg-chart-2/20'}`}>
+            {isUp ? (
+              <TrendUpIcon size={16} weight="bold" fill="oklch(0.75 0.18 160)" />
+            ) : (
+              <TrendDownIcon size={16} weight="bold" fill="oklch(0.7 0.2 25)" />
+            )}
+          </div>
+          <div>
+            <span className={`${isUp ? 'text-(--color-chart-1)' : 'text-(--color-chart-2)'} block font-bold`}>
+              {market.priceChangePercent}%
+            </span>
+            <span className="block text-xs text-muted-foreground align-middle">
+              24h H/L: {formatPrice(market.highPrice)} / {formatPrice(market.lowPrice)}
+            </span>
+          </div>
+        </div>
       </td>
-      <td className="hidden sm:table-cell px-6 py-4 w-40 max-w-40 align-middle">
+      <td className="hidden sm:table-cell px-6 py-4 w-40 max-w-40 align-middle font-bold">
         {formatCompact.format(market.quoteVolume)}
       </td>
     </tr>
