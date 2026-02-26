@@ -9,15 +9,6 @@ export type FavoritesStoreActions = {
 
 export type FavoritesStore = FavoritesState & FavoritesStoreActions;
 
-// --- useTheme.ts ---
-export type ThemeState = { theme: 'light' | 'dark' };
-
-export type ThemeStoreActions = {
-  toggleTheme: () => void;
-};
-
-export type ThemeStore = ThemeState & ThemeStoreActions;
-
 // --- useMarketStore.ts ---
 export type SelectedMarketState = { selectedMarket: Market | null };
 
