@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -38,6 +37,10 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-grad-start: var(--grad-start);
+  --color-grad-via: var(--grad-via);
+  --color-grad-end: var(--grad-end);
 }
 
 :root {
@@ -91,9 +94,13 @@
   --glass-border: rgba(255, 255, 255, 0.6);
   --item-bg: rgba(0, 0, 0, 0.05);
   --shimmer-color: rgba(255, 255, 255, 0.4);
+
+  --grad-start: #1e293b; /* slate-800 */
+  --grad-via: #1d4ed8; /* blue-700 */
+  --grad-end: #7e22ce; /* purple-700 */
 }
 
-.dark {
+[data-theme='dark'] {
   /* Dark Mode - Deep space navy with bright text */
   --primary: oklch(0.65 0.25 300);
   --primary-foreground: oklch(1 0 0);
@@ -123,7 +130,7 @@
   --secondary-foreground: oklch(0.9 0.02 0);
 
   --muted: oklch(1 0 0 / 0.06);
-  --muted-foreground: oklch(0.7 0.03 0);
+  --muted-foreground: oklch(0.75 0.01 250);
 
   --accent: oklch(0.65 0.25 300 / 0.15);
   --accent-foreground: oklch(0.98 0.01 0);
@@ -146,6 +153,10 @@
   --glass-border: rgba(255, 255, 255, 0.1);
   --item-bg: rgba(255, 255, 255, 0.1);
   --shimmer-color: rgba(255, 255, 255, 0.1);
+
+  --grad-start: #ffffff; /* white */
+  --grad-via: #d8b4fe; /* purple-300 */
+  --grad-end: #67e8f9; /* cyan-300 */
 }
 
 body {
@@ -169,7 +180,7 @@ body::before {
   will-change: transform;
 }
 
-html.dark body::before {
+[data-theme='dark'] body::before {
   background-image: url('/images/dark-mode-bg.png');
 }
 
