@@ -2,6 +2,7 @@
 
 import MarketCandle from '@/components/marketCandle';
 import MarketList from '@/components/marketList';
+import useBinanceSocket from '@/hooks/market/useBinanceSocket';
 import useFavoritesStore from '@/store/useFavoritesStore';
 import useMarketStore from '@/store/useMarketStore';
 import { CoinFilterType } from '@/types/filter';
@@ -14,6 +15,7 @@ export default function Home() {
   const [coinFilter, setCoinFilter] = useState<CoinFilterType>('all');
   const isFavorite = useFavoritesStore((state) => state.symbols);
   const selectedMarket = useMarketStore((state) => state.selectedMarket);
+  useBinanceSocket();
 
   return (
     <div className="min-h-screen relative overflow-hidden">

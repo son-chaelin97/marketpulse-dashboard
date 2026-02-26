@@ -9,6 +9,11 @@ export interface Market {
   quoteVolume: number;
 }
 
+export type MarketPatch = Pick<
+  Market,
+  'symbol' | 'priceChangePercent' | 'lastPrice' | 'highPrice' | 'lowPrice' | 'quoteVolume'
+>;
+
 export type SortKey = 'quoteVolume' | 'symbol' | 'lastPrice' | 'priceChangePercent';
 export type SortDir = 'asc' | 'desc' | null;
 export interface SortData {
