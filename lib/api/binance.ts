@@ -1,18 +1,11 @@
+import { QUOTE } from '@/constants/market';
 import type { Binance24hrTicker, BinanceKline } from '@/types/binance';
 import { Candle, StatusType } from '@/types/chart';
 import type { Market } from '@/types/market';
+import { toNumber } from '../utils';
 
-const BINANCE_24H_URL = 'https://api.binance.com/api/v3/ticker/24hr';
-const BINANCE_KLINES_URL = 'https://api.binance.com/api/v3/klines';
-const QUOTE = 'USDT' as const;
-
-function toNumber(value: string, fieldName: string): number {
-  const num = Number(value);
-  if (!Number.isFinite(num)) {
-    throw new Error(`Invalid number for ${fieldName}: "${value}"`);
-  }
-  return num;
-}
+const BINANCE_24H_URL = 'https://testnet.binance.vision/api/v3/ticker/24hr';
+const BINANCE_KLINES_URL = 'https://testnet.binance.vision/api/v3/klines';
 
 function toMarket(item: Binance24hrTicker) {
   // 현재는 USDT 마켓만 지원
