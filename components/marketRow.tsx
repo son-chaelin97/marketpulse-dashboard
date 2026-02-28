@@ -53,7 +53,7 @@ function MarketRow({ market }: { market: Market }) {
           {formatPrice(market.lastPrice)}
         </span>
       </td>
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 align-middle">
         <div className="flex items-center gap-2">
           <div className={`p-1 rounded-4xl ${isUp ? 'bg-chart-1/20' : 'bg-chart-2/20'}`}>
             {isUp ? (
@@ -66,7 +66,7 @@ function MarketRow({ market }: { market: Market }) {
             <span className={`${isUp ? 'text-(--color-chart-1)' : 'text-(--color-chart-2)'} block font-bold`}>
               {market.priceChangePercent}%
             </span>
-            <span className="block text-xs text-muted-foreground align-middle">
+            <span className="lg:block hidden text-xs text-muted-foreground align-middle">
               24h H/L: {formatPrice(market.highPrice)} / {formatPrice(market.lowPrice)}
             </span>
           </div>

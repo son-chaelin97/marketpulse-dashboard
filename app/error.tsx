@@ -22,6 +22,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
           <button
             type="button"
+            aria-label="페이지 새로고침"
             onClick={() => reset()}
             className="w-full py-4 rounded-xl font-semibold text-white transition-all border-0 px-4 gap-2 cursor-pointer bg-primary! text-sm hover:scale-[1.02] active:scale-[0.98] shadow-lg">
             다시 시도하기
