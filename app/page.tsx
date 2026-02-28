@@ -29,8 +29,9 @@ export default function Home() {
           </div>
           <button
             type="button"
+            aria-label="테마 변경"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="glass-card border-0 px-2.5 py-2.5 text-base font-medium hover:bg-primary/20! cursor-pointer">
+            className="glass-card border-0 px-2.5 py-2.5 text-base font-medium hover:bg-primary/20! cursor-pointer w-fit">
             {theme === 'dark' ? (
               // TODO: color 속성에 직접적으로 컬러를 넣지 않고 네이밍한 컬러를 넣을 수 있는지 알아보고 수정 (ex: text-slate-600)
               <SunIcon size={20} color="oklch(85.2% 0.199 91.936)" />
@@ -39,9 +40,10 @@ export default function Home() {
             )}
           </button>
         </div>
-        <div className="flex gap-4 mt-12">
+        <div className="flex gap-4 mt-12 w-max">
           <button
             type="button"
+            aria-label="모든 코인 보기"
             className="glass-card border-0 px-4 py-2 font-bold cursor-pointer bg-primary/20! text-primary text-sm"
             aria-pressed={coinFilter === 'all'}
             onClick={() => setCoinFilter('all')}>
@@ -49,6 +51,7 @@ export default function Home() {
           </button>
           <button
             type="button"
+            aria-label="관심 코인 보기"
             className="glass-card border-0 px-4 py-2 font-bold flex items-center gap-2 cursor-pointer bg-primary! text-white text-sm"
             aria-pressed={coinFilter === 'favorite'}
             onClick={() => setCoinFilter('favorite')}>

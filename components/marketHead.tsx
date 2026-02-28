@@ -23,6 +23,7 @@ export default function MarketHead({
         <th className="px-6 py-4">
           <button
             type="button"
+            aria-label="코인 이름 정렬"
             className="flex items-center cursor-pointer text-sm font-semibold text-muted-foreground uppercase tracking-wide"
             onClick={() => handleSortChange('symbol')}>
             코인 이름
@@ -32,6 +33,7 @@ export default function MarketHead({
         <th className="px-6 py-4">
           <button
             type="button"
+            aria-label="가격 정렬"
             className="flex items-center cursor-pointer text-sm font-semibold text-muted-foreground uppercase tracking-wide"
             onClick={() => handleSortChange('lastPrice')}>
             가격
@@ -41,6 +43,7 @@ export default function MarketHead({
         <th className="px-6 py-4">
           <button
             type="button"
+            aria-label="24시간 변동률 정렬"
             className="flex items-center cursor-pointer text-sm font-semibold text-muted-foreground uppercase tracking-wide"
             onClick={() => handleSortChange('priceChangePercent')}>
             24H 변동률
@@ -50,6 +53,7 @@ export default function MarketHead({
         <th className="px-6 py-4 hidden sm:table-cell">
           <button
             type="button"
+            aria-label="거래량 정렬"
             className="flex items-center cursor-pointer text-sm font-semibold text-muted-foreground uppercase tracking-wide"
             onClick={() => handleSortChange('quoteVolume')}>
             거래량
