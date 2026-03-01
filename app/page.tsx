@@ -18,7 +18,7 @@ export default function Home() {
   useBinanceSocket();
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative lg:overflow-x-hidden overflow-y-hidden">
       <main className="pt-12 pb-12 pr-6 pl-6 mr-6 ml-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
